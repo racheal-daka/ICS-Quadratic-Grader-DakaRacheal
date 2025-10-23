@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quadratic & Grade Converter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background: #f5f5f5;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    input, button {
+      margin: 5px;
+      padding: 8px;
+    }
+    .section {
+      background: white;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>ICT251 - JS GitHub Activity</h1>
+
+  <!-- Quadratic Solver -->
+  <div class="section">
+    <h2>Quadratic Equation Solver (ax² + bx + c = 0)</h2>
+    <label>a: <input type="number" id="a"></label>
+    <label>b: <input type="number" id="b"></label>
+    <label>c: <input type="number" id="c"></label>
+    <button onclick="solveQuadratic()">Solve</button>
+    <p id="quadraticResult"></p>
+  </div>
+
+  <!-- Grade Converter -->
+  <div class="section">
+    <h2>Grade Converter (0 - 100)</h2>
+    <label>Score: <input type="number" id="score"></label>
+    <button onclick="convertGrade()">Convert</button>
+    <p id="gradeResult"></p>
+  </div>
+
+  <script>
+    // Function to solve quadratic equation
+    function solveQuadratic() {
+      const a = parseFloat(document.getElementById("a").value);
+      const b = parseFloat(document.getElementById("b").value);
+      const c = parseFloat(document.getElementById("c").value);
+
+      if (isNaN(a) || isNaN(b) || isNaN(c)) {
+        document.getElementById("quadraticResult").innerText = "Please enter valid numbers.";
+        return;
+      }
+
+      const discriminant = b*b - 4*a*c;
+      if (discriminant < 0) {
+        document.getElementById("quadraticResult").innerText = "No real roots (discriminant < 0).";
+      } else {
+        const root1 = (-b + Math.sqrt(discriminant)) / (2*a);
+        const root2 = (-b - Math.sqrt(discriminant)) / (2*a);
+        document.getElementById("quadraticResult").innerText =
+          `Roots are: x₁ = ${root1.toFixed(2)}, x₂ = ${root2.toFixed(2)}`;
+      }
+    }
+
+    // Function to convert numeric score to letter grade
+    function convertGrade() {
+      const score = parseFloat(document.getElementById("score").value);
+      let grade = "";
+
+      if (score >= 85 && score <= 100) grade = "A+";
+      else if (score >= 75) grade = "A";
+      else if (score >= 65) grade = "B+";
+      else if (score >= 60) grade = "B";
+      else if (score >= 55) grade = "C+";
+      else if (score >= 50) grade = "C";
+      else if (score >= 0) grade = "D";
+      else grade = "Invalid score.";
+
+      document.getElementById("gradeResult").innerText = `Letter Grade: ${grade}`;
+    }
+  </script>
+</body>
+</html>
